@@ -13,8 +13,8 @@ misread. Those entries belong in the correction commits.
 
 ## P01
 
-The case starts with +, a function thus it will evaluate every argument in its case before it runs. 
-Before adding, it will first evaluate the inner function (* 2 3) which results in 6 then the + will then be executed, and the final value is 7, an integer. As the value is an integer, and not a sequence then it would have a length of none. The case has a function as its operator as + is the head of the case. 
+The case starts with `+`, a function thus it will evaluate every argument in its case before it runs. 
+Before adding, it will first evaluate the inner function `(* 2 3)` which results in 6 then the `+` will then be executed, and the final value is `7`, an integer. As the value is an integer, and not a sequence then it would have a length of none. The case has a function as its operator as `+` is the head of the case. 
 
 ## P02
 
