@@ -12,28 +12,38 @@ wrongly. Say what you predicted, what CLISP printed, and which rule you
 misread. Those entries belong in the correction commits.
 
 ## P01
-Replace this line with the rule behind this case's four fields.
+
+The case starts with +, a function thus it will evaluate every argument in its case before it runs. 
+Before adding, it will first evaluate the inner function (* 2 3) which results in 6 then the + will then be executed, and the final value is 7, an integer. As the value is an integer, and not a sequence then it would have a length of none. The case has a function as its operator as + is the head of the case. 
 
 ## P02
-Replace this line with the rule behind this case's four fields.
+
+Despite its seeming similarity to P01, it does not evaluate like P01 as its head is `quote`, thus P02 case’s operator is special-operator, which does not evaluate its subform unlike a function. As for its kind, it is `cons` as it is a list with at least one element. As for how it is written, the value is  `(+,1,2)` in the grader’s notation, with elements separated with commas, and no spaces. The value has a length of 3, counting the number of elements inside the list. 
 
 ## P03
-Replace this line with the rule behind this case's four fields.
 
+The form is the atom `nil` thus it has no head, and the operator is none. As nil is the empty list, symbol, and false at the same time, its kind is null. And it is an empty sequence thus it has a length of 0 instead of none. 
+  
 ## P04
-Replace this line with the rule behind this case's four fields.
+
+The form is the atom `t`, so it has no head and the operator is none. `t` evaluates to itself thus the value is `t`. As it is a symbol that is not `nil`, then the kind is symbol. It would have none as its length as it is not a sequence. 
 
 ## P05
-Replace this line with the rule behind this case's four fields.
 
+`symbolp` is a function thus it evaluates its argument, `nil`, then tests whether it is a symbol, and given that `nil` is a symbol then the predicate returns true, `t`. The value return, `t`, is not `nil`, so the kind is `symbol`, and it is not a sequence thus the length is `none`. 
+    
 ## P06
-Replace this line with the rule behind this case's four fields.
+
+`car` is a function, so it evaluates its argument. The argument `'()` is read as `(quote ())`, which returns the empty list `nil`, and `car` of the empty list would return `nil`. Thus, the value is `nil`, which makes `null` as its kind, while the length is 0 as `nil` is an empty sequence. 
 
 ## P07
-Replace this line with the rule behind this case's four fields.
+
+`cons` is a function, so the operator is a function, which evaluates both arguments, `1` evaluates to itself, and `'(2,3)` which is `(quote (2 3))`, that returns the list `(2 3)`. `cons` will then build a new list with `1` in front, which gives the `(1 2 3)` that would be written as `(1,2,3)` in grader’s notation. As a list with at least one element is `cons`, and the list contains 3 elements, then the length is 3.
 
 ## P08
-Replace this line with the rule behind this case's four fields.
+
+The case starts with `if` so the operator is `special-operator`, and it decides which subforms to evaluate. Firstly, it will evaluate the `if` condition then chooses one branch according to the result of the condition. Given that `(null '())` is true, it will then proceed to evaluate empty, and will no longer continue with full, and return the value `empty`. As for its kind, P08’s kind is symbol, and as it is a symbol that is not nil, then the length is none. 
+
 
 ## P09
 
