@@ -49,8 +49,17 @@ arguments and MAPCAR hands its function one."
   "Apply the arithmetic operator OP to the two numbers in VALUES.
 
 OP is the symbol +, -, or *. Signal an error for anything else."
-  (declare (ignore op values))
-  (error "apply-op is not implemented"))
+  ;; op - arithmetic operator symbol
+  ;; values - list of two numbers to apply the operator to
+
+  ;; separate and bind values into two variables for easier calling
+  (let ((a (first values))
+        (b (second values)))
+    ;; check the operator first then apply it to the two numbers
+    (cond ((eq op '+) (+ a b))
+          ((eq op '-) (- a b))
+          ((eq op '*) (* a b))
+          (t (error "Unknown operator: ~a" op)))))
 
 ;;; E3 -- let.
 
