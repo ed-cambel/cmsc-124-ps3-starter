@@ -36,8 +36,14 @@ name. Signal an error when NAME is not bound at all."
 
 MAPCAR and a LAMBDA do this in one line. Watch the arity: EVAL-EXPR takes two
 arguments and MAPCAR hands its function one."
-  (declare (ignore exprs env))
-  (error "eval-operands is not implemented"))
+  ;; exprs - list of unevaluated expressions
+  ;; env - environment to evaluate the expressions in
+
+  ;; mapcar applies lambda to each element and returns list of results
+  (mapcar (lambda (expr) 
+          ;;  call eval-expr on each expr with the same env and evaluate them
+            (eval-expr expr env)) 
+          exprs)
 
 (defun apply-op (op values)
   "Apply the arithmetic operator OP to the two numbers in VALUES.
