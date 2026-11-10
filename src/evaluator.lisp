@@ -88,8 +88,12 @@ Return the list (:closure params body env). ENV is the environment the lambda
 was written in, not the one it will later be called from. Saving the wrong one
 is what makes the difference between 3 and 101 in the case the manual walks
 through."
-  (declare (ignore params body env))
-  (error "make-closure is not implemented"))
+  ;; params - list of parametrs for closure
+  ;; body - body of closure
+  ;; env - environment where closure was created
+
+  ;; returns list representing the closure
+  (list :closure params body env))
 
 (defun apply-closure (closure args)
   "Run CLOSURE on ARGS.
