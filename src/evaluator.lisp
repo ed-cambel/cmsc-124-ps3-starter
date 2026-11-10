@@ -100,9 +100,23 @@ through."
 
 The parameters join the environment the closure captured. Signal an error when
 CLOSURE is not a closure, and when the argument count does not match."
-  (declare (ignore closure args))
-  (error "apply-closure is not implemented"))
+  ;; closure - closure to be used
+  ;; args - list of arguments passed to closure
 
+  ;; check if closure is a valid closure
+  (if (not (and (listp closure) (eq (first closure) :closure)))
+      (error "Not a closure: ~a" closure))
+
+  ;; check if number of arguments = number parameters
+  (let ((params (second closure)))
+    (if (not (= (length params) (length args)))
+        (error "Argument count mismatch: ~a" closure)))
+
+    ;; extend the environment with parameters and arguments
+    (let ((env (extend-env params args (fourth closure))))
+      ;; evaluate the body of the closure in the new environment
+      (eval-expr (third closure) env)))
+      
 ;;; The dispatcher.
 
 (defun eval-expr (expr env)
