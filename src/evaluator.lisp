@@ -90,11 +90,24 @@ CLOSURE is not a closure, and when the argument count does not match."
   (error "apply-closure is not implemented"))
 
 ;;; The dispatcher.
-
 (defun eval-expr (expr env)
-  "The value of EXPR in ENV.
+  "The value of EXPR in ENV."
+  (cond
+    ;; atoms first
+    ((numberp expr) expr)
 
-Order the branches with care. NIL is a symbol as well as the empty list, and a
-number is not a cons, so the atom tests come before the list tests."
-  (declare (ignore expr env))
-  (error "eval-expr is not implemented"))
+    ((symbolp expr) (lookup expr env)) ; NIL goes here, unbound error
+    ((not (consp expr)) (error "Bad expression: ~S" expr))
+    ;; special forms and arithmetic
+    ((member (first expr) '(+ - *))
+     (apply-op (first expr) (eval-operands (rest expr) env)))
+    ((eq (first expr) 'let)
+     (eval-let expr env))
+    ((eq (first expr) 'lambda)
+      (make-closure (second expr) (third expr) env))
+    ;; evaluate the operator
+    (t (apply-closure (eval-expr (first expr) env)
+                      (eval-operands (rest expr) env)))))
+
+
+
