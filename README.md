@@ -7,7 +7,7 @@ Problem Set 3. The assignment manual defines the work and the submission rules.
 ## Pair
 
 - Edriellen Mey G. Cambel (`@ed-cambel`)
-- Name (`@`)
+- Meka Synova Z. Melicor (`@Meka-Sy`)
 
 ## Layout
 
