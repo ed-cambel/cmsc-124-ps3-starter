@@ -38,15 +38,30 @@ name. Signal an error when NAME is not bound at all."
 
 MAPCAR and a LAMBDA do this in one line. Watch the arity: EVAL-EXPR takes two
 arguments and MAPCAR hands its function one."
-  (declare (ignore exprs env))
-  (error "eval-operands is not implemented"))
+  ;; exprs - list of unevaluated expressions
+  ;; env - environment to evaluate the expressions in
+
+  ;; mapcar applies lambda to each element and returns list of results
+  (mapcar (lambda (expr) 
+          ;;  call eval-expr on each expr with the same env and evaluate them
+            (eval-expr expr env)) 
+          exprs))
 
 (defun apply-op (op values)
   "Apply the arithmetic operator OP to the two numbers in VALUES.
 
 OP is the symbol +, -, or *. Signal an error for anything else."
-  (declare (ignore op values))
-  (error "apply-op is not implemented"))
+  ;; op - arithmetic operator symbol
+  ;; values - list of two numbers to apply the operator to
+
+  ;; separate and bind values into two variables for easier calling
+  (let ((a (first values))
+        (b (second values)))
+    ;; check the operator first then apply it to the two numbers
+    (cond ((eq op '+) (+ a b))
+          ((eq op '-) (- a b))
+          ((eq op '*) (* a b))
+          (t (error "Unknown operator: ~a" op)))))
 
 ;;; E3 -- let.
 
@@ -78,17 +93,35 @@ Return the list (:closure params body env). ENV is the environment the lambda
 was written in, not the one it will later be called from. Saving the wrong one
 is what makes the difference between 3 and 101 in the case the manual walks
 through."
-  (declare (ignore params body env))
-  (error "make-closure is not implemented"))
+  ;; params - list of parametrs for closure
+  ;; body - body of closure
+  ;; env - environment where closure was created
+
+  ;; returns list representing the closure
+  (list :closure params body env))
 
 (defun apply-closure (closure args)
   "Run CLOSURE on ARGS.
 
 The parameters join the environment the closure captured. Signal an error when
 CLOSURE is not a closure, and when the argument count does not match."
-  (declare (ignore closure args))
-  (error "apply-closure is not implemented"))
+  ;; closure - closure to be used
+  ;; args - list of arguments passed to closure
 
+  ;; check if closure is a valid closure
+  (if (not (and (listp closure) (eq (first closure) :closure)))
+      (error "Not a closure: ~a" closure))
+
+  ;; check if number of arguments = number parameters
+  (let ((params (second closure)))
+    (if (not (= (length params) (length args)))
+        (error "Argument count mismatch: ~a" closure)) 
+
+    ;; extend the environment with parameters and arguments
+    (let ((env (extend-env params args (fourth closure))))
+      ;; evaluate the body of the closure in the new environment
+      (eval-expr (third closure) env))))
+      
 ;;; The dispatcher.
 (defun eval-expr (expr env)
   "The value of EXPR in ENV."
