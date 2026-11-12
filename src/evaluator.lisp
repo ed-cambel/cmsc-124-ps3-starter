@@ -45,7 +45,7 @@ arguments and MAPCAR hands its function one."
   (mapcar (lambda (expr) 
           ;;  call eval-expr on each expr with the same env and evaluate them
             (eval-expr expr env)) 
-          exprs)
+          exprs))
 
 (defun apply-op (op values)
   "Apply the arithmetic operator OP to the two numbers in VALUES.
