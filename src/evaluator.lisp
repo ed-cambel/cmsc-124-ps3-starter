@@ -120,7 +120,7 @@ CLOSURE is not a closure, and when the argument count does not match."
     ;; extend the environment with parameters and arguments
     (let ((env (extend-env params args (fourth closure))))
       ;; evaluate the body of the closure in the new environment
-      (eval-expr (third closure) env)))
+      (eval-expr (third closure) env))))
       
 ;;; The dispatcher.
 (defun eval-expr (expr env)
