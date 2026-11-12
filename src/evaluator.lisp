@@ -115,7 +115,7 @@ CLOSURE is not a closure, and when the argument count does not match."
   ;; check if number of arguments = number parameters
   (let ((params (second closure)))
     (if (not (= (length params) (length args)))
-        (error "Argument count mismatch: ~a" closure)))
+        (error "Argument count mismatch: ~a" closure)) 
 
     ;; extend the environment with parameters and arguments
     (let ((env (extend-env params args (fourth closure))))
